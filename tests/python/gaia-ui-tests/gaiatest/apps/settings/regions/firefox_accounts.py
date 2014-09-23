@@ -51,13 +51,12 @@ class FirefoxAccounts(Base):
         self.marionette.find_element(*self._fxa_email_input_locator).send_keys(email)
 
     def tap_button_next(self):
-        time.sleep(4)
-        self.wait_for_element_present(*self._fxa_module_next_locator)
-        self.marionette.find_element(*self._fxa_module_next_locator).tap()
+        fxa_module_next = self.wait_for_element_present(*self._fxa_module_next_locator)
+        self.wait_for_condition(lambda m: fxa_module_next.is_enabled())
+        fxa_module_next.tap()
 
     def select_age_from_coppa_menu(self, option):
-        time.sleep(4)
-        self.wait_for_element_present(*self._fxa_age_select_locator)
+        self.wait_for_element_displayed(*self._fxa_age_select_locator)
         self.marionette.find_element(*self._fxa_age_select_locator).tap()
         self.select(option)
 
