@@ -6,7 +6,7 @@ import time
 
 from gaiatest import GaiaTestCase
 from gaiatest.apps.settings.app import Settings
-from gaiatest.utils.bluetooth.bluetooth_host import BluetoothHost
+
 
 
 class TestBluetoothSettings(GaiaTestCase):
@@ -15,6 +15,7 @@ class TestBluetoothSettings(GaiaTestCase):
         GaiaTestCase.setUp(self)
 
         # Bluetooth host object
+        from gaiatest.utils.bluetooth.bluetooth_host import BluetoothHost
         self.bluetooth_host = BluetoothHost(self.marionette)
 
     def test_toggle_bluetooth_settings(self):
