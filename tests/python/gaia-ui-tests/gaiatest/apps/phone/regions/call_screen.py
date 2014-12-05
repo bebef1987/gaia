@@ -126,17 +126,13 @@ class CallScreen(Phone):
     def _handle_incoming_call(self, destination):
 
         lockscreen_handle = self.marionette.find_element(*self._lockscreen_handle_locator)
-        lockscreen_handle_x_centre = int(lockscreen_handle.size['width'] / 2)
-        lockscreen_handle_y_centre = int(lockscreen_handle.size['height'] / 2)
 
         handle_destination = lockscreen_handle.size['width']
         if destination == 'reject':
-            handle_destination = 0
+            handle_destination *= -1
 
         # Flick lockscreen handle to the destination
-        Actions(self.marionette).flick(
-            lockscreen_handle, lockscreen_handle_x_centre, lockscreen_handle_y_centre, handle_destination, 0
-        ).perform()
+        Actions(self.marionette).press(lockscreen_handle).move_by_offset(handle_destination, 0).release().perform()
 
     def reject_call(self):
         self.wait_for_element_displayed(*self._lockscreen_handle_locator)
