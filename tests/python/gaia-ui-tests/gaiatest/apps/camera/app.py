@@ -81,7 +81,8 @@ class Camera(Base):
         self.marionette.find_element(*self._capture_button_locator).tap()
 
     def tap_select_button(self):
-        select = self.marionette.find_element(*self._select_button_locator)
+        select = Wait(self.marionette).until(expected.element_present(*self._select_button_locator))
+        Wait(self.marionette).until(expected.element_displayed(select))
         Wait(self.marionette).until(expected.element_enabled(select))
 
         try:
