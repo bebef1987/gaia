@@ -92,7 +92,9 @@ class CallScreen(Phone):
         return self.marionette.find_element(*self._incoming_call_locator).find_element(*self._via_sim_locator).text
 
     def wait_for_outgoing_call(self):
-        call = self.marionette.find_element(*self._outgoing_call_locator)
+        call = Wait(self.marionette).until(
+            expected.element_present(*self._outgoing_call_locator))
+
         contact = call.find_element(*self._calling_contact_locator)
         Wait(self.marionette).until(lambda m: call.location['y'] == 0 and contact.text)
 
